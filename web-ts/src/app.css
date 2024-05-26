@@ -1,0 +1,92 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+    font-family: 'inter-black';
+    src: url(/fonts/Inter-Black.ttf);
+}
+
+@font-face {
+    font-family: 'inter-bold';
+    src: url(/fonts/Inter-Bold.ttf);
+}
+
+@font-face {
+    font-family: 'inter-extrabold';
+    src: url(/fonts/Inter-ExtraBold.ttf);
+}
+
+@font-face {
+    font-family: 'inter-extralight';
+    src: url(/fonts/Inter-ExtraLight.ttf);
+}
+
+@font-face {
+    font-family: 'inter-light';
+    src: url(/fonts/Inter-Light.ttf);
+}
+
+@font-face {
+    font-family: 'inter-medium';
+    src: url(/fonts/Inter-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'inter-regular';
+    src: url(/fonts/Inter-Regular.ttf);
+}
+
+@font-face {
+    font-family: 'inter-semibold';
+    src: url(/fonts/Inter-SemiBold.ttf);
+}
+
+@font-face {
+    font-family: 'inter-thin';
+    src: url(/fonts/Inter-Thin.ttf);
+}
+
+.required::after {
+    content: "*";
+    color: rgb(220, 53, 69);
+    margin-left: 2px;
+}
+
+.position-absolute-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.position-absolute-center-x {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.position-absolute-center-y {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.h-fill {
+    height: 100%;
+    height: -moz-available;
+    height: -webkit-fill-available;
+    height: stretch;
+}
+
+.w-fill {
+    width: 100%;
+    width: -moz-available;
+    width: -webkit-fill-available;
+    width: stretch;
+}
+
+* {
+    outline: none;
+    /* line-height: 120%!important; */
+}

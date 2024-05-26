@@ -1,0 +1,65 @@
+version: '3'
+
+services:
+    mongo11:
+        hostname: mongo11
+        container_name: mongo11
+        image: mongo:7.0-jammy
+        ports:
+            - '30011:30011'
+        volumes:
+            - 'mongodb_11:/data/db'
+        restart: always
+        command: '--bind_ip_all --replSet rs0 --port 30011'
+        networks:
+            - mongo_cluster
+
+    mongo12:
+        hostname: mongo12
+        container_name: mongo12
+        image: mongo:7.0-jammy
+        ports:
+            - '30012:30012'
+        volumes:
+            - 'mongodb_12:/data/db'
+        restart: always
+        command: '--bind_ip_all --replSet rs0 --port 30012'
+        networks:
+            - mongo_cluster
+
+    mongo13:
+        hostname: mongo13
+        container_name: mongo13
+        image: mongo:7.0-jammy
+        ports:
+            - '30013:30013'
+        volumes:
+            - 'mongodb_13:/data/db'
+        restart: always
+        command: '--bind_ip_all --replSet rs0 --port 30013'
+        networks:
+            - mongo_cluster
+
+    redis:
+        image: 'docker.io/bitnami/redis:6.0-debian-10'
+        environment:
+        - ALLOW_EMPTY_PASSWORD=yes
+        - REDIS_DISABLE_COMMANDS=FLUSHDB,FLUSHALL
+        ports:
+        - '6379:6379'
+        volumes:
+        - 'redis_data:/bitnami/redis/data'
+
+networks:
+    mongo_cluster:
+        driver: bridge
+
+volumes:
+    mongodb_11:
+        external: true
+    mongodb_12:
+        external: true
+    mongodb_13:
+        external: true
+    redis_data:
+        driver: local

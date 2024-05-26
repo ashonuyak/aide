@@ -1,0 +1,1078 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "operationId": "login",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/auth/sign-up": {
+      "post": {
+        "operationId": "signUp",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SignUpDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/campaign": {
+      "delete": {
+        "operationId": "deleteCampaign",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCampaignDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      },
+      "get": {
+        "operationId": "getCampaignById",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CampaignResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateCampaign",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCampaignDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "createCampaign",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCampaignDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FundraiserCampaignResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/campaign/all": {
+      "get": {
+        "operationId": "getAllCampaigns",
+        "parameters": [
+          {
+            "name": "search",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FundraiserCampaignResponseDto"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/campaign/fundraiser": {
+      "get": {
+        "operationId": "getMyCampaigns",
+        "parameters": [
+          {
+            "name": "search",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "status",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/FundraiserCampaignResponseDto"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/campaign/handle": {
+      "get": {
+        "operationId": "getCampaignsByCategoryHandle",
+        "parameters": [
+          {
+            "name": "category-handle",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "search",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/CampaignResponseDto"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/campaign/postman": {
+      "patch": {
+        "operationId": "updateCampaigns",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/campaign/status": {
+      "patch": {
+        "operationId": "updateCampaignStatus",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCampaignStatusDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/category": {
+      "get": {
+        "operationId": "getCategoryById",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategoryDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "operationId": "createCategory",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateCategoryDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetCategoryDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      },
+      "put": {
+        "operationId": "updateCategory",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateCategoryDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/category/all": {
+      "get": {
+        "operationId": "getAllCategories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/GetCategoryDto"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/oauth": {
+      "get": {
+        "operationId": "getAuth",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetAuthResponseDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/oauth/callback": {
+      "get": {
+        "operationId": "getToken",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/user/fundraisers": {
+      "get": {
+        "operationId": "getFundraisers",
+        "parameters": [
+          {
+            "name": "search",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/UserMappedDto"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/user/me": {
+      "get": {
+        "operationId": "getMyself",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserMappedDto"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Aide",
+    "description": "Aide API",
+    "version": "0.0.1",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [
+    {
+      "url": "/api"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "cookie": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "aide_access_token"
+      }
+    },
+    "schemas": {
+      "AdditionalLinkDto": {
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ],
+        "type": "object"
+      },
+      "CampaignResponseDto": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "additionalLinks": {
+            "items": {
+              "$ref": "#/components/schemas/AdditionalLinkDto"
+            },
+            "type": "array"
+          },
+          "categoryAddOns": {
+            "$ref": "#/components/schemas/CategoryAddOns"
+          },
+          "categoryId": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "currentAmount": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "endDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "fundraiser": {
+            "$ref": "#/components/schemas/UserMappedDto"
+          },
+          "fundraiserId": {
+            "type": "string"
+          },
+          "goalAmount": {
+            "type": "number"
+          },
+          "mainImage": {
+            "type": "string"
+          },
+          "media": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "payPalEnabled": {
+            "type": "boolean"
+          },
+          "paymentCards": {
+            "items": {
+              "$ref": "#/components/schemas/PaymentCardDto"
+            },
+            "type": "array"
+          },
+          "qrCode": {
+            "nullable": true,
+            "type": "string"
+          },
+          "qrCodeUrl": {
+            "nullable": true,
+            "type": "string"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/ScheduleDto"
+          },
+          "startDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "active",
+              "paused",
+              "deleted",
+              "closed"
+            ],
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "_id",
+          "additionalLinks",
+          "categoryAddOns",
+          "categoryId",
+          "description",
+          "fundraiser",
+          "fundraiserId",
+          "mainImage",
+          "media",
+          "payPalEnabled",
+          "paymentCards",
+          "qrCode",
+          "qrCodeUrl",
+          "status",
+          "subtitle",
+          "title"
+        ],
+        "type": "object"
+      },
+      "CategoryAddOns": {
+        "properties": {
+          "region": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "CreateCampaignDto": {
+        "properties": {
+          "additionalLinks": {
+            "items": {
+              "$ref": "#/components/schemas/AdditionalLinkDto"
+            },
+            "type": "array"
+          },
+          "categoryAddOns": {
+            "$ref": "#/components/schemas/CategoryAddOns"
+          },
+          "categoryId": {
+            "$ref": "#/components/schemas/SchemaObjectId"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "description": {
+            "maxLength": 2000,
+            "type": "string"
+          },
+          "goalAmount": {
+            "type": "number"
+          },
+          "payPalEnabled": {
+            "type": "boolean"
+          },
+          "paymentCards": {
+            "items": {
+              "$ref": "#/components/schemas/PaymentCardDto"
+            },
+            "type": "array"
+          },
+          "qrCodeUrl": {
+            "type": "string"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/ScheduleDto"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "active",
+              "paused",
+              "deleted",
+              "closed"
+            ],
+            "type": "string"
+          },
+          "subtitle": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 100,
+            "type": "string"
+          }
+        },
+        "required": [
+          "categoryId",
+          "description",
+          "payPalEnabled",
+          "status",
+          "title"
+        ],
+        "type": "object"
+      },
+      "CreateCategoryDto": {
+        "properties": {
+          "color": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "handle": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "subtitle": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 100,
+            "type": "string"
+          }
+        },
+        "required": [
+          "color",
+          "handle",
+          "subtitle",
+          "title"
+        ],
+        "type": "object"
+      },
+      "DeleteCampaignDto": {
+        "properties": {
+          "_id": {
+            "$ref": "#/components/schemas/SchemaObjectId"
+          }
+        },
+        "required": [
+          "_id"
+        ],
+        "type": "object"
+      },
+      "FundraiserCampaignResponseDto": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "additionalLinks": {
+            "items": {
+              "$ref": "#/components/schemas/AdditionalLinkDto"
+            },
+            "type": "array"
+          },
+          "categoryAddOns": {
+            "$ref": "#/components/schemas/CategoryAddOns"
+          },
+          "categoryId": {
+            "type": "string"
+          },
+          "currency": {
+            "type": "string"
+          },
+          "currentAmount": {
+            "type": "number"
+          },
+          "description": {
+            "type": "string"
+          },
+          "endDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "fundraiserId": {
+            "type": "string"
+          },
+          "goalAmount": {
+            "type": "number"
+          },
+          "mainImage": {
+            "type": "string"
+          },
+          "media": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "payPalEnabled": {
+            "type": "boolean"
+          },
+          "paymentCards": {
+            "items": {
+              "$ref": "#/components/schemas/PaymentCardDto"
+            },
+            "type": "array"
+          },
+          "qrCode": {
+            "nullable": true,
+            "type": "string"
+          },
+          "qrCodeUrl": {
+            "nullable": true,
+            "type": "string"
+          },
+          "schedule": {
+            "$ref": "#/components/schemas/ScheduleDto"
+          },
+          "startDate": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "active",
+              "paused",
+              "deleted",
+              "closed"
+            ],
+            "type": "string"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "_id",
+          "additionalLinks",
+          "categoryAddOns",
+          "categoryId",
+          "description",
+          "fundraiserId",
+          "mainImage",
+          "media",
+          "payPalEnabled",
+          "paymentCards",
+          "qrCode",
+          "qrCodeUrl",
+          "status",
+          "subtitle",
+          "title"
+        ],
+        "type": "object"
+      },
+      "GetAuthResponseDto": {
+        "properties": {
+          "url": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "type": "object"
+      },
+      "GetCategoryDto": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "color": {
+            "type": "string"
+          },
+          "handle": {
+            "type": "string"
+          },
+          "order": {
+            "type": "number"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "_id",
+          "color",
+          "handle",
+          "order",
+          "subtitle",
+          "title"
+        ],
+        "type": "object"
+      },
+      "LoginDto": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ],
+        "type": "object"
+      },
+      "PaymentCardDto": {
+        "properties": {
+          "key": {
+            "type": "string"
+          },
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "key",
+          "value"
+        ],
+        "type": "object"
+      },
+      "ScheduleDto": {
+        "properties": {
+          "end": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "start": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "end",
+          "start"
+        ],
+        "type": "object"
+      },
+      "SchemaObjectId": {
+        "properties": {},
+        "type": "object"
+      },
+      "SignUpDto": {
+        "properties": {
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "email",
+          "firstName",
+          "lastName",
+          "password",
+          "username"
+        ],
+        "type": "object"
+      },
+      "UpdateCampaignDto": {
+        "properties": {
+          "_id": {
+            "$ref": "#/components/schemas/SchemaObjectId"
+          }
+        },
+        "required": [
+          "_id"
+        ],
+        "type": "object"
+      },
+      "UpdateCampaignStatusDto": {
+        "properties": {
+          "_id": {
+            "$ref": "#/components/schemas/SchemaObjectId"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "active",
+              "paused",
+              "deleted",
+              "closed"
+            ],
+            "type": "string"
+          }
+        },
+        "required": [
+          "_id",
+          "status"
+        ],
+        "type": "object"
+      },
+      "UpdateCategoryDto": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "color": {
+            "maxLength": 50,
+            "type": "string"
+          },
+          "handle": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "subtitle": {
+            "maxLength": 200,
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 100,
+            "type": "string"
+          }
+        },
+        "required": [
+          "_id"
+        ],
+        "type": "object"
+      },
+      "UserMappedDto": {
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "avatarUrl": {
+            "type": "string"
+          },
+          "blocked": {
+            "type": "boolean"
+          },
+          "createdAt": {
+            "format": "date-time",
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "initials": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "user",
+              "fundraiser",
+              "admin"
+            ],
+            "type": "string"
+          },
+          "username": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "_id",
+          "createdAt",
+          "email",
+          "initials",
+          "role",
+          "username"
+        ],
+        "type": "object"
+      }
+    }
+  }
+}

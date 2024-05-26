@@ -1,0 +1,3 @@
+export const SENDGRID_TEMPLATES_IDS = {
+	VERIFY_EMAIL: 'd-a7a10aae31c546a9a3da740323da2eba'
+};
