@@ -1,4 +1,7 @@
 import type { ActionReturn } from 'svelte/action';
+import tippy from 'tippy.js';
+import 'tippy.js/dist/tippy.css';
+import 'tippy.js/themes/material.css';
 
 // Action: Clipboard
 type ClipboardArgs = string | { element: string } | { input: string };
@@ -29,6 +32,10 @@ export function clipboard(
 						`Missing HTMLElement with an attribute of [data-clipboard="${args.element}"]`
 					);
 				copyToClipboard(element.innerHTML, 'text/html').then(fireCopyCompleteEvent);
+
+				const tooltip = tippy(node, { arrow: false, content: 'Copied to clipboard!' });
+
+				setTimeout(() => tooltip.destroy(), 1000);
 				return;
 			}
 			// Form Input Value
@@ -41,11 +48,25 @@ export function clipboard(
 						`Missing HTMLInputElement with an attribute of [data-clipboard="${args.input}"]`
 					);
 				copyToClipboard(input.value).then(fireCopyCompleteEvent);
+
+				const tooltip = tippy(node, { arrow: false, content: 'Copied to clipboard!' });
+
+				setTimeout(() => tooltip.destroy(), 1000);
 				return;
 			}
 		}
 		// Handle everything else.
 		copyToClipboard(args).then(fireCopyCompleteEvent);
+
+		console.log('node :>> ', node);
+
+		const tooltip = tippy(node, { arrow: false, content: 'Copied to clipboard!' });
+
+		tooltip.show()
+
+		console.log('tooltip :>> ', tooltip);
+
+		setTimeout(() => tooltip.destroy(), 1000);
 	};
 	// Event Listener
 	node.addEventListener('click', onClick);

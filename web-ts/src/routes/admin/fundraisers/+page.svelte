@@ -1,17 +1,27 @@
 <script lang="ts">
 	import Search from '$lib/components/Search/Search.svelte';
-	import { useGetFundraisers } from '$lib/api/index.js';
+	import {
+		useGetFundraisers,
+		useBlockFundraiser,
+		useUnblockFundraiser,
+		useClearAllFundraiserSessions
+	} from '$lib/api/index.js';
 	import Table from '$lib/components/Table/Table.svelte';
 	import Avatar from '$lib/components/Avatar/Avatar.svelte';
 	import Dropdown from '$lib/components/Dropdown/Dropdown.svelte';
 	import DotsButton from '$lib/components/Dropdown/DotsButton.svelte';
+	import { formatDate } from '$lib/utils/format-date.util.js';
 
 	export let data;
 	let search = '';
 
 	$: fundraisers = useGetFundraisers(data.fundraisers, search);
 
-	console.log('data :>> ', data);
+	const block = useBlockFundraiser();
+
+	const unblock = useUnblockFundraiser();
+
+	const clearAllFundraiserSessions = useClearAllFundraiserSessions();
 </script>
 
 <div class="flex justify-between items-center mb-[40px]">
@@ -39,23 +49,26 @@
 				<span>{fundraiser.username}</span>
 			</Components.TableRowCell>
 			<Components.TableRowCell>{fundraiser.email}</Components.TableRowCell>
-			<Components.TableRowCell>{fundraiser.createdAt}</Components.TableRowCell>
-			<Components.TableRowCell>{fundraiser.createdAt}</Components.TableRowCell>
+			<Components.TableRowCell>{formatDate(fundraiser.createdAt)}</Components.TableRowCell>
+			<Components.TableRowCell>{formatDate(fundraiser.createdAt)}</Components.TableRowCell>
 
 			<Components.TableRowCell class="flex justify-center">
 				<Dropdown let:Components button={DotsButton}>
 					<Components.DropdownWindow class="max-h-[200px] min-w-[176px] max-w-[240px]">
 						{#if fundraiser.blocked}
-							<Components.DropdownItem on:click={() => {}}
-								>Block</Components.DropdownItem
-							>
-						{:else}
-							<Components.DropdownItem on:click={() => {}}
+							<Components.DropdownItem
+								on:click={() => $unblock.mutate(fundraiser._id)}
 								>Unblock</Components.DropdownItem
 							>
+						{:else}
+							<Components.DropdownItem on:click={() => $block.mutate(fundraiser._id)}
+								>Block</Components.DropdownItem
+							>
 						{/if}
-						<Components.DropdownItem>Clear all sessions</Components.DropdownItem>
-						<Components.DropdownItem class="text-[#dc3545]">Delete</Components.DropdownItem>
+						<Components.DropdownItem
+							on:click={() => $clearAllFundraiserSessions.mutate(fundraiser._id)}
+							>Clear all sessions</Components.DropdownItem
+						>
 					</Components.DropdownWindow>
 				</Dropdown>
 			</Components.TableRowCell>

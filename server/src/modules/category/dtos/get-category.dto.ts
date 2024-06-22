@@ -10,4 +10,6 @@ export class GetCategoryDto {
 	readonly handle!: string;
 
 	readonly color!: string;
+
+	readonly mediaUrl?: string;
 }

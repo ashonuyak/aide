@@ -39,4 +39,10 @@ export class CategoryController {
 	updateCategory(@Body() payload: UpdateCategoryDto) {
 		return this.categoryService.update(payload);
 	}
+
+	@Get('/admin/all')
+	@Roles(Role.Admin)
+	getAdminCategories(): Promise<GetCategoryDto[]> {
+		return this.categoryService.findCategoriesForAdmin();
+	}
 }

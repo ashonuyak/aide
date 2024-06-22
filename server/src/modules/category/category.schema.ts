@@ -28,17 +28,17 @@ export class CategoryModel extends Document {
 	})
 	readonly handle!: string;
 
-	// @Prop({
-	// 	type: String,
-	// 	required: false
-	// })
-	// readonly description?: string;
+	@Prop({
+		type: String,
+		required: false
+	})
+	readonly description?: string;
 
-	// @Prop({
-	// 	type: String,
-	// 	required: true
-	// })
-	// readonly mediaUrl!: string;
+	@Prop({
+		type: String,
+		required: true
+	})
+	readonly mediaUrl!: string;
 
 	@Prop({
 		type: Number,

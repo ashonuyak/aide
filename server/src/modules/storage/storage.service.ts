@@ -22,26 +22,6 @@ export class StorageService {
 		this.bucket = this.configService.get<string>('google-cloud-storage.media_bucket') || '';
 	}
 
-	// async save(
-	// 	path: string,
-	// 	contentType: string,
-	// 	media: Buffer,
-	// 	metadata: { [key: string]: string }[]
-	// ) {
-	// 	const object = metadata.reduce((obj, item) => Object.assign(obj, item), {});
-	// 	const file = this.storage.bucket(this.bucket).file(path);
-	// 	const stream = file.createWriteStream();
-	// 	stream.on('error', (err: Error) => {
-	// 		this.logger.error(err);
-	// 	});
-	// 	stream.on('finish', async () => {
-	// 		return await file.setMetadata({
-	// 			metadata: object
-	// 		});
-	// 	});
-	// 	stream.end(media);
-	// }
-
 	async save(
 		path: string,
 		contentType: string,

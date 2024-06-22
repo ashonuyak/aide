@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
 import { MediaModule } from '../media/media.module';
@@ -20,6 +20,7 @@ import { CategoryModule } from '../category/category.module';
 		CategoryModule
 	],
 	providers: [CampaignRepository, CampaignService],
-	controllers: [CampaignController]
+	controllers: [CampaignController],
+	exports: [CampaignService]
 })
 export class CampaignModule {}

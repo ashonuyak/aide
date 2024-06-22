@@ -22,6 +22,7 @@
 	import CampaignCard from '$lib/page-components/CampaignCard/CampaignCard.svelte';
 	import { user } from '$lib/stores/user.store';
 	import FundraiserCampaignCard from '$lib/page-components/CampaignCard/FundraiserCampaignCard.svelte';
+	import QrCode from '$lib/components/QRCode/QRCode.svelte';
 
 	export let data;
 

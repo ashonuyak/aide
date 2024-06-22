@@ -16,6 +16,8 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CampaignModule } from './modules/campaign/campaign.module';
 import { CategoryModule } from './modules/category/category.module';
 import { UserModule } from './modules/user/user.module';
+import { StatisticModule } from './modules/statistic/statistic.module';
+import { SessionModule } from './modules/session/session.module';
 
 @Module({
 	imports: [
@@ -59,7 +61,9 @@ import { UserModule } from './modules/user/user.module';
 		AuthModule,
 		CampaignModule,
 		CategoryModule,
-		UserModule
+		UserModule,
+		StatisticModule,
+		SessionModule
 	],
 	controllers: [AppController],
 	providers: [

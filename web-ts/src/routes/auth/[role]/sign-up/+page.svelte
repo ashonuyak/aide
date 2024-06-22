@@ -37,9 +37,9 @@
 <PublicMain>
 	<div class="flex flex-col w-full h-full items-center justify-center gap-[80px]">
 		<div class="flex flex-col items-center justify-center gap-[12px]">
-			<div class="text-[48px] font-semibold">Become a fundraiser</div>
+			<div class="text-[48px] font-semibold">Become a fundraiser!</div>
 
-			<div class="text-[24px]">Some text</div>
+			<div class="text-[24px]">Join our mission to make a difference.</div>
 		</div>
 
 		<div class="flex flex-col items-center justify-center w-[440px]">

@@ -1,4 +1,4 @@
-import { Controller, Get, Logger, Param, Query } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Logger, Param, Patch, Query } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 import { SkipThrottle } from '@nestjs/throttler';
@@ -9,6 +9,8 @@ import { Role } from '../auth/enums/roles.enum';
 import { UserMappedDto } from './dtos/user-mapped.dto';
 import { UserMapper } from './user.mapper';
 import { UserService } from './user.service';
+import { DeleteCampaignDto } from '../campaign/dtos/delete-campaign.dto';
+import { CampaignStatus } from '../campaign/enums/campaign-status.enum';
 
 @ApiTags('User')
 @Controller('user')
@@ -46,5 +48,17 @@ export class UserController {
 		);
 
 		return fundraisers.map(this.userMapper.toDto);
+	}
+
+	@Patch('/block')
+	@Roles(Role.Admin)
+	blockFundraiser(@Body() { _id }: DeleteCampaignDto) {
+		return this.userService.updateOne({ _id }, { blocked: true });
+	}
+
+	@Patch('/unblock')
+	@Roles(Role.Admin)
+	unblockFundraiser(@Body() { _id }: DeleteCampaignDto) {
+		return this.userService.updateOne({ _id }, { blocked: false });
 	}
 }

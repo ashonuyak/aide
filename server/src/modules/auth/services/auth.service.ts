@@ -86,7 +86,9 @@ export class AuthService {
 		return this.createLoginResponse(user, { deviceOS: '', deviceType: '', isSecure: true });
 	}
 
-	async logout(session: Session, authType: AuthType): Promise<LogoutResponse> {
+	async logout(session: Session): Promise<LogoutResponse> {
+		console.log('session :>> ', session);
+
 		if (session) {
 			await this.sessionService.deleteOne(session._id);
 		}
@@ -124,7 +126,7 @@ export class AuthService {
 	async validate(headers: IncomingHttpHeaders): Promise<Session> {
 		const session = this.getCookieToken(headers) as string;
 
-		console.log('session :>> ', session);
+		// console.log('session :>> ', session);
 
 		if (session) {
 			return this.validateSession(session);
@@ -167,7 +169,7 @@ export class AuthService {
 	private getCookieToken(headers: IncomingHttpHeaders): string | null {
 		const cookies = cookieParser.parse(headers.cookie || '');
 
-		console.log('cookies :>> ', cookies);
+		// console.log('cookies :>> ', cookies);
 
 		return cookies[AideCookie.ACCESS_TOKEN] || null;
 	}

@@ -12,7 +12,7 @@ export class AuthGuard implements CanActivate {
 	async canActivate(context: ExecutionContext): Promise<boolean> {
 		const roles = this.reflector.get<Role[]>('roles', context.getHandler());
 
-		console.log('roles :>> ', roles);
+		// console.log('roles :>> ', roles);
 
 		if (!roles) {
 			return true;
@@ -21,7 +21,7 @@ export class AuthGuard implements CanActivate {
 		const request = context.switchToHttp().getRequest();
 		const session = await this.authService.validate(request.headers);
 
-		console.log('session :>> ', session);
+		// console.log('session :>> ', session);
 
 		request.session = session;
 

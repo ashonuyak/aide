@@ -8,9 +8,11 @@ export const csr = true;
 export async function load({ cookies, url, locals }) {
 	const authenticated = locals.user;
 
-	if (!authenticated && url.pathname !== APP_ROUTES.HOMEPAGE) {
-		throw redirect(307, APP_ROUTES.HOMEPAGE);
-	}
+	console.log('authenticated :>> ', authenticated);
+
+	// if (!authenticated && url.pathname !== APP_ROUTES.HOMEPAGE) {
+	// 	throw redirect(307, APP_ROUTES.HOMEPAGE);
+	// }
 
 	return {
 		meta: {

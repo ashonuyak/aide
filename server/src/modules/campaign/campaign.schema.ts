@@ -113,43 +113,12 @@ export class CampaignModel extends Document {
 	})
 	readonly paymentCards!: PaymentCardDto[];
 
-	// TODO: Implement next features
 	@Prop({
-		type: Number,
-		required: false
+		type: Boolean,
+		required: false,
+		default: false
 	})
-	readonly goalAmount?: number;
-
-	@Prop({
-		type: Number,
-		required: false
-	})
-	readonly currentAmount?: number;
-
-	@Prop({
-		type: String,
-		required: false
-	})
-	readonly currency?: string;
-
-	@Prop({
-		type: Date,
-		required: false
-	})
-	readonly startDate?: Date;
-
-	@Prop({
-		type: Date,
-		required: false
-	})
-	readonly endDate?: Date;
-
-	@Prop({
-		type: Object,
-		required: false
-	})
-	readonly schedule?: ScheduleDto;
-
+	readonly blocked!: boolean;
 }
 
 export type CampaignDocument = CampaignModel;

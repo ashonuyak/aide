@@ -5,6 +5,7 @@ import { AideCookie } from 'src/common/enums/aide-cookie.enum';
 import { respondWithCookie } from 'src/utils/response';
 import { AuthType } from '../enums/auth-type.enum';
 import { OAuthService } from '../services/oauth.service';
+import { Role } from '../enums/roles.enum';
 
 class GetAuthResponseDto {
 	@ApiProperty({ type: String })
@@ -47,7 +48,12 @@ export class OauthController {
 
 			console.log('user :>> ', user);
 
-			res.redirect('http://localhost:5173/fundraiser/campaigns');
+			if (user.role === Role.Admin) {
+				res.redirect('http://localhost:5173/admin/campaigns');
+			} else {
+				res.redirect('http://localhost:5173/fundraiser/campaigns');
+			}
+
 		} catch (error) {
 			console.error('Error handling OAuth callback:', error);
 			res.status(500).send('Authentication failed.');

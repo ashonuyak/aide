@@ -1,5 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { FilterQuery, ProjectionType, QueryOptions } from 'mongoose';
+import { FilterQuery, ProjectionType, QueryOptions, UpdateQuery } from 'mongoose';
 
 import { MongoSort } from 'src/common/types/mongo-sort.type';
 import { UserRepository } from './user.repository';
@@ -29,5 +29,9 @@ export class UserService {
 		sort?: MongoSort
 	) {
 		return this.userRepository.find(filter, projection, sort);
+	}
+
+	updateOne(filter: FilterQuery<UserDocument>, updateQuery: UpdateQuery<UserDocument>) {
+		return this.userRepository.updateOne(filter, updateQuery);
 	}
 }

@@ -84,8 +84,37 @@ export class CampaignService {
 		);
 	}
 
-	find(filter: FilterQuery<CampaignDocument>): Promise<CampaignDocument[]> {
-		return this.campaignRepository.find(filter, null, { updatedAt: -1 });
+	find(filter: FilterQuery<CampaignDocument>) {
+		const $lookup = {
+			from: 'user',
+			let: { fundraiserId: '$fundraiserId' },
+			pipeline: [
+				{
+					$match: {
+						$expr: { $eq: ['$_id', '$$fundraiserId'] }
+					}
+				},
+				{
+					$project: {
+						firstName: 1,
+						lastName: 1,
+						avatarUrl: 1,
+						username: 1,
+						email: 1
+					}
+				}
+			],
+			as: 'fundraiser'
+		};
+
+		const $unwind = '$fundraiser';
+
+		return this.campaignRepository.aggregate<CampaignResponseDto>([
+			{ $match: filter },
+			{ $lookup },
+			{ $unwind },
+			{ $sort: { updatedAt: -1 } }
+		]);
 	}
 
 	async findByCategoryHandle(filter: FilterQuery<CampaignDocument>, categoryHandle: string) {
@@ -182,5 +211,17 @@ export class CampaignService {
 
 	updateStatus(filter: FilterQuery<CampaignDocument>, status: CampaignStatus) {
 		return this.campaignRepository.updateOne(filter, { status });
+	}
+
+	block(_id: any) {
+		return this.campaignRepository.updateOne({ _id }, { blocked: true });
+	}
+
+	unblock(_id: any) {
+		return this.campaignRepository.updateOne({ _id }, { blocked: false });
+	}
+
+	async getTopCampaigns() {
+		
 	}
 }

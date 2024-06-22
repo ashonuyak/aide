@@ -55,7 +55,7 @@
 						</div>
 					</div>
 					<a
-						href="https://daddy.ngrok.io/setup-paypal"
+						href="https://www.paypal.com/us/webapps/mpp/account-selection"
 						class="text-[14px] font-semibold text-[#253b80] underline underline-offset-2"
 						target="_blank"
 						>See the guide</a

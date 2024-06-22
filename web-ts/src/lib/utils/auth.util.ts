@@ -16,7 +16,7 @@ export const loadUser = async (cookies: Cookies) => {
 	try {
 		let loaded = get(user);
 
-		console.log('loaded :>> ', loaded);
+		// console.log('loaded :>> ', loaded);
 
 		if (!loaded && hasAuthCookie(cookies)) {
 			loaded = await aleop(getMyself, cookies);
@@ -25,7 +25,7 @@ export const loadUser = async (cookies: Cookies) => {
 
 		return loaded;
 	} catch  (err) {
-		console.log('err :>> ', err);
+		// console.log('err :>> ', err);
 
 		return null;
 	}

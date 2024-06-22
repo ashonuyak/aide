@@ -4,6 +4,7 @@ import { readable } from 'svelte/store';
 
 export const categories = readable<GetCategoryDto[]>([], function start(set) {
 	page.subscribe((value) => {
+		console.log('value :>> ', value);
 		set(value.data.categories);
 	});
 

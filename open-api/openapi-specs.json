@@ -47,6 +47,24 @@
         }
       }
     },
+    "/auth/logout": {
+      "delete": {
+        "operationId": "logout",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
     "/auth/sign-up": {
       "post": {
         "operationId": "signUp",
@@ -196,6 +214,27 @@
         }
       }
     },
+    "/campaign/block": {
+      "patch": {
+        "operationId": "blockCampaign",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCampaignDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
     "/campaign/fundraiser": {
       "get": {
         "operationId": "getMyCampaigns",
@@ -253,6 +292,14 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "region",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
@@ -292,6 +339,27 @@
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateCampaignStatusDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/campaign/unblock": {
+      "patch": {
+        "operationId": "unblockCampaign",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCampaignDto"
               }
             }
           },
@@ -367,6 +435,27 @@
         }
       }
     },
+    "/category/admin/all": {
+      "get": {
+        "operationId": "getAdminCategories",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/GetCategoryDto"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
     "/category/all": {
       "get": {
         "operationId": "getAllCategories",
@@ -426,6 +515,186 @@
         }
       }
     },
+    "/session/all": {
+      "delete": {
+        "operationId": "clearAllUserSessions",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCampaignDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/statistic/merge/{range}": {
+      "post": {
+        "operationId": "merge",
+        "parameters": [
+          {
+            "name": "range",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/statistic/top-campaigns": {
+      "get": {
+        "operationId": "getTopCampaigns",
+        "parameters": [
+          {
+            "name": "type",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/statistic/top-campaigns-category": {
+      "get": {
+        "operationId": "getTopCampaignsCategory",
+        "parameters": [
+          {
+            "name": "type",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "categoryId",
+            "required": true,
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "type": "object"
+                  },
+                  "type": "array"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/statistic/{type}": {
+      "post": {
+        "operationId": "trackStatistic",
+        "parameters": [
+          {
+            "name": "type",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TrackStatisticDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      }
+    },
+    "/user/block": {
+      "patch": {
+        "operationId": "blockFundraiser",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCampaignDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
+    },
     "/user/fundraisers": {
       "get": {
         "operationId": "getFundraisers",
@@ -472,6 +741,30 @@
                 }
               }
             },
+            "description": ""
+          }
+        },
+        "tags": [
+          "User"
+        ]
+      }
+    },
+    "/user/unblock": {
+      "patch": {
+        "operationId": "unblockFundraiser",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteCampaignDto"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
             "description": ""
           }
         },
@@ -711,6 +1004,9 @@
             "maxLength": 200,
             "type": "string"
           },
+          "mediaUrl": {
+            "type": "string"
+          },
           "subtitle": {
             "maxLength": 200,
             "type": "string"
@@ -866,6 +1162,9 @@
           "handle": {
             "type": "string"
           },
+          "mediaUrl": {
+            "type": "string"
+          },
           "order": {
             "type": "number"
           },
@@ -964,6 +1263,41 @@
         ],
         "type": "object"
       },
+      "TrackMetadataDto": {
+        "properties": {
+          "campaignId": {
+            "type": "string"
+          },
+          "categoryId": {
+            "type": "string"
+          }
+        },
+        "type": "object"
+      },
+      "TrackStatisticDto": {
+        "properties": {
+          "categoryClick": {
+            "type": "number"
+          },
+          "click": {
+            "type": "number"
+          },
+          "impression": {
+            "type": "number"
+          },
+          "metadata": {
+            "$ref": "#/components/schemas/TrackMetadataDto"
+          },
+          "timestamp": {
+            "format": "date-time",
+            "type": "string"
+          }
+        },
+        "required": [
+          "metadata"
+        ],
+        "type": "object"
+      },
       "UpdateCampaignDto": {
         "properties": {
           "_id": {
@@ -1008,6 +1342,9 @@
           },
           "handle": {
             "maxLength": 200,
+            "type": "string"
+          },
+          "mediaUrl": {
             "type": "string"
           },
           "subtitle": {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { useGetCampaigns } from '$lib/api/index.js';
+	import { useGetCampaigns, useTrackStatistic, Measurements } from '$lib/api/index.js';
 	import Search from '$lib/components/Search/Search.svelte';
 	import { campaignsStore } from '$lib/stores/campaigns.store.js';
 	import { mapCampaignCard } from '$lib/services/campaign-map.service.js';
@@ -14,9 +14,15 @@
 	let selectedRegion: string | undefined = undefined;
 	const { campaigns, search } = campaignsStore;
 	$campaigns = data.campaigns;
-	$: categoryCampaigns = useGetCampaigns(data.campaigns, $search, data.selectedCategory?.handle);
+	$: categoryCampaigns = useGetCampaigns(
+		data.campaigns,
+		$search,
+		data.selectedCategory?.handle,
+		selectedRegion
+	);
 
 	const isZSUCategory = data.selectedCategory?.handle === 'armed-forces-of-ukraine';
+	const trackStatistic = useTrackStatistic();
 </script>
 
 <div class="flex justify-between items-center mb-[40px]">
@@ -26,7 +32,9 @@
 <Search placeholder="Search campaigns..." bind:value={$search} class="pr-2 items-center">
 	{#if isZSUCategory}
 		<Dropdown let:Components class="border-none px-2 py-1 pl-3 hover:bg-[#f1f1f1]">
-			<span class="mr-2 font-semibold whitespace-nowrap" slot="title">{selectedRegion || 'Region'}</span>
+			<span class="mr-2 font-semibold whitespace-nowrap" slot="title"
+				>{selectedRegion || 'Region'}</span
+			>
 			<Components.DropdownWindow class="w-[240px] max-h-[240px]">
 				<Components.DropdownItem
 					on:click={() => (selectedRegion = undefined)}
@@ -65,7 +73,13 @@
 		<CampaignCard
 			campaign={mapCampaignCard(campaign)}
 			fundraiser={campaign.fundraiser}
-			on:donate={() => (window.location.href = `/campaign/${campaign._id}`)}
+			on:donate={() => {
+				$trackStatistic.mutate({
+					type: Measurements.click,
+					dto: { metadata: { campaignId: campaign._id, categoryId: campaign.categoryId }, click: 1 }
+				});
+				window.location.href = `/campaign/${campaign._id}`;
+			}}
 		/>
 	{/each}
 </div>

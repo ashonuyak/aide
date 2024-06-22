@@ -26,6 +26,12 @@ export function login({ loginDto }, opts) {
         body: loginDto
     })));
 }
+export function logout(opts) {
+    return oazapfts.ok(oazapfts.fetchJson("/auth/logout", {
+        ...opts,
+        method: "DELETE"
+    }));
+}
 export function signUp({ signUpDto }, opts) {
     return oazapfts.ok(oazapfts.fetchText("/auth/sign-up", oazapfts.json({
         ...opts,
@@ -68,6 +74,13 @@ export function getAllCampaigns({ search }, opts) {
         ...opts
     }));
 }
+export function blockCampaign({ deleteCampaignDto }, opts) {
+    return oazapfts.ok(oazapfts.fetchText("/campaign/block", oazapfts.json({
+        ...opts,
+        method: "PATCH",
+        body: deleteCampaignDto
+    })));
+}
 export function getMyCampaigns({ search, status }, opts) {
     return oazapfts.ok(oazapfts.fetchJson(`/campaign/fundraiser${QS.query(QS.explode({
         search,
@@ -76,10 +89,11 @@ export function getMyCampaigns({ search, status }, opts) {
         ...opts
     }));
 }
-export function getCampaignsByCategoryHandle({ categoryHandle, search }, opts) {
+export function getCampaignsByCategoryHandle({ categoryHandle, search, region }, opts) {
     return oazapfts.ok(oazapfts.fetchJson(`/campaign/handle${QS.query(QS.explode({
         "category-handle": categoryHandle,
-        search
+        search,
+        region
     }))}`, {
         ...opts
     }));
@@ -95,6 +109,13 @@ export function updateCampaignStatus({ updateCampaignStatusDto }, opts) {
         ...opts,
         method: "PATCH",
         body: updateCampaignStatusDto
+    })));
+}
+export function unblockCampaign({ deleteCampaignDto }, opts) {
+    return oazapfts.ok(oazapfts.fetchText("/campaign/unblock", oazapfts.json({
+        ...opts,
+        method: "PATCH",
+        body: deleteCampaignDto
     })));
 }
 export function getCategoryById(opts) {
@@ -116,6 +137,11 @@ export function updateCategory({ updateCategoryDto }, opts) {
         body: updateCategoryDto
     })));
 }
+export function getAdminCategories(opts) {
+    return oazapfts.ok(oazapfts.fetchJson("/category/admin/all", {
+        ...opts
+    }));
+}
 export function getAllCategories(opts) {
     return oazapfts.ok(oazapfts.fetchJson("/category/all", {
         ...opts
@@ -133,36 +159,47 @@ export function getToken({ code }, opts) {
         ...opts
     }));
 }
-export function getAuth2(opts) {
-    return oazapfts.ok(oazapfts.fetchText("/stripe", {
-        ...opts
-    }));
+export function clearAllUserSessions({ deleteCampaignDto }, opts) {
+    return oazapfts.ok(oazapfts.fetchText("/session/all", oazapfts.json({
+        ...opts,
+        method: "DELETE",
+        body: deleteCampaignDto
+    })));
 }
-export function createAccount(opts) {
-    return oazapfts.ok(oazapfts.fetchJson("/stripe/accounts", {
+export function merge({ range }, opts) {
+    return oazapfts.ok(oazapfts.fetchJson(`/statistic/merge/${encodeURIComponent(range)}`, {
         ...opts,
         method: "POST"
     }));
 }
-export function donate({ accountId }, opts) {
-    return oazapfts.ok(oazapfts.fetchJson(`/stripe/donate/${encodeURIComponent(accountId)}`, {
-        ...opts,
-        method: "POST"
-    }));
-}
-export function handleOAuthCallback({ code, state }, opts) {
-    return oazapfts.ok(oazapfts.fetchText(`/stripe/oauth/callback${QS.query(QS.explode({
-        code,
-        state
+export function getTopCampaigns({ $type }, opts) {
+    return oazapfts.ok(oazapfts.fetchJson(`/statistic/top-campaigns${QS.query(QS.explode({
+        "type": $type
     }))}`, {
         ...opts
     }));
 }
-export function handleWebhook(opts) {
-    return oazapfts.ok(oazapfts.fetchText("/stripe/webhook", {
-        ...opts,
-        method: "POST"
+export function getTopCampaignsCategory({ $type, categoryId }, opts) {
+    return oazapfts.ok(oazapfts.fetchJson(`/statistic/top-campaigns-category${QS.query(QS.explode({
+        "type": $type,
+        categoryId
+    }))}`, {
+        ...opts
     }));
+}
+export function trackStatistic({ $type, trackStatisticDto }, opts) {
+    return oazapfts.ok(oazapfts.fetchJson(`/statistic/${encodeURIComponent($type)}`, oazapfts.json({
+        ...opts,
+        method: "POST",
+        body: trackStatisticDto
+    })));
+}
+export function blockFundraiser({ deleteCampaignDto }, opts) {
+    return oazapfts.ok(oazapfts.fetchText("/user/block", oazapfts.json({
+        ...opts,
+        method: "PATCH",
+        body: deleteCampaignDto
+    })));
 }
 export function getFundraisers({ search }, opts) {
     return oazapfts.ok(oazapfts.fetchJson(`/user/fundraisers${QS.query(QS.explode({
@@ -175,6 +212,13 @@ export function getMyself(opts) {
     return oazapfts.ok(oazapfts.fetchJson("/user/me", {
         ...opts
     }));
+}
+export function unblockFundraiser({ deleteCampaignDto }, opts) {
+    return oazapfts.ok(oazapfts.fetchText("/user/unblock", oazapfts.json({
+        ...opts,
+        method: "PATCH",
+        body: deleteCampaignDto
+    })));
 }
 export var Role;
 (function (Role) {

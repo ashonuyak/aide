@@ -93,6 +93,8 @@ export class CampaignController {
 		@Query('search') search?: string,
 		@Query('status') status?: string
 	): Promise<FundraiserCampaignResponseDto[]> {
+		console.log('session :>> ', session);
+
 		return this.campaignService.find({
 			fundraiserId: session.userId,
 			...(status ? { status } : { status: { $ne: CampaignStatus.Deleted } }),
@@ -113,7 +115,8 @@ export class CampaignController {
 	@Get('/handle')
 	getCampaignsByCategoryHandle(
 		@Query('category-handle') categoryHandle: string,
-		@Query('search') search?: string
+		@Query('search') search?: string,
+		@Query('region') region?: string,
 	): Promise<CampaignResponseDto[]> {
 		return this.campaignService.findByCategoryHandle(
 			{
@@ -128,11 +131,35 @@ export class CampaignController {
 					{
 						description: { $regex: search, $options: 'i' }
 					}
-				]
+				],
+				...(region && { 'categoryAddOns.region': region })
 			},
 			categoryHandle
 		);
 	}
+
+	// @Get('/active')
+	// getCampaigns(
+	// 	@Query('search') search?: string
+	// ): Promise<CampaignResponseDto[]> {
+	// 	return this.campaignService.findByCategoryHandle(
+	// 		{
+	// 			status: CampaignStatus.Active,
+	// 			$or: [
+	// 				{
+	// 					title: { $regex: search, $options: 'i' }
+	// 				},
+	// 				{
+	// 					subtitle: { $regex: search, $options: 'i' }
+	// 				},
+	// 				{
+	// 					description: { $regex: search, $options: 'i' }
+	// 				}
+	// 			]
+	// 		},
+	// 		categoryHandle
+	// 	);
+	// }
 
 	@Get()
 	getCampaignById(@Query('id') _id: string): Promise<CampaignResponseDto> {
@@ -157,7 +184,6 @@ export class CampaignController {
 	}
 
 	@Get('/all')
-	@Roles(Role.Admin)
 	getAllCampaigns(@Query('search') search: string): Promise<FundraiserCampaignResponseDto[]> {
 		return this.campaignService.find({
 			$or: [
@@ -172,5 +198,17 @@ export class CampaignController {
 				}
 			]
 		});
+	}
+
+	@Patch('/block')
+	@Roles(Role.Admin)
+	blockCampaign(@Body() { _id }: DeleteCampaignDto) {
+		return this.campaignService.block({ _id });
+	}
+
+	@Patch('/unblock')
+	@Roles(Role.Admin)
+	unblockCampaign(@Body() { _id }: DeleteCampaignDto) {
+		return this.campaignService.unblock({ _id });
 	}
 }

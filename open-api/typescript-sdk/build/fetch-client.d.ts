@@ -124,6 +124,7 @@ export type GetCategoryDto = {
     _id: string;
     color: string;
     handle: string;
+    mediaUrl?: string;
     order: number;
     subtitle: string;
     title: string;
@@ -131,6 +132,7 @@ export type GetCategoryDto = {
 export type CreateCategoryDto = {
     color: string;
     handle: string;
+    mediaUrl?: string;
     subtitle: string;
     title: string;
 };
@@ -138,16 +140,29 @@ export type UpdateCategoryDto = {
     _id: string;
     color?: string;
     handle?: string;
+    mediaUrl?: string;
     subtitle?: string;
     title?: string;
 };
 export type GetAuthResponseDto = {
     url: string;
 };
+export type TrackMetadataDto = {
+    campaignId?: string;
+    categoryId?: string;
+};
+export type TrackStatisticDto = {
+    categoryClick?: number;
+    click?: number;
+    impression?: number;
+    metadata: TrackMetadataDto;
+    timestamp?: string;
+};
 export declare function getHello(opts?: Oazapfts.RequestOpts): Promise<string>;
 export declare function login({ loginDto }: {
     loginDto: LoginDto;
 }, opts?: Oazapfts.RequestOpts): Promise<object>;
+export declare function logout(opts?: Oazapfts.RequestOpts): Promise<object>;
 export declare function signUp({ signUpDto }: {
     signUpDto: SignUpDto;
 }, opts?: Oazapfts.RequestOpts): Promise<never>;
@@ -166,17 +181,24 @@ export declare function createCampaign({ createCampaignDto }: {
 export declare function getAllCampaigns({ search }: {
     search: string;
 }, opts?: Oazapfts.RequestOpts): Promise<FundraiserCampaignResponseDto[]>;
+export declare function blockCampaign({ deleteCampaignDto }: {
+    deleteCampaignDto: DeleteCampaignDto;
+}, opts?: Oazapfts.RequestOpts): Promise<never>;
 export declare function getMyCampaigns({ search, status }: {
     search: string;
     status: string;
 }, opts?: Oazapfts.RequestOpts): Promise<FundraiserCampaignResponseDto[]>;
-export declare function getCampaignsByCategoryHandle({ categoryHandle, search }: {
+export declare function getCampaignsByCategoryHandle({ categoryHandle, search, region }: {
     categoryHandle: string;
     search: string;
+    region: string;
 }, opts?: Oazapfts.RequestOpts): Promise<CampaignResponseDto[]>;
 export declare function updateCampaigns(opts?: Oazapfts.RequestOpts): Promise<never>;
 export declare function updateCampaignStatus({ updateCampaignStatusDto }: {
     updateCampaignStatusDto: UpdateCampaignStatusDto;
+}, opts?: Oazapfts.RequestOpts): Promise<never>;
+export declare function unblockCampaign({ deleteCampaignDto }: {
+    deleteCampaignDto: DeleteCampaignDto;
 }, opts?: Oazapfts.RequestOpts): Promise<never>;
 export declare function getCategoryById(opts?: Oazapfts.RequestOpts): Promise<GetCategoryDto>;
 export declare function createCategory({ createCategoryDto }: {
@@ -185,25 +207,39 @@ export declare function createCategory({ createCategoryDto }: {
 export declare function updateCategory({ updateCategoryDto }: {
     updateCategoryDto: UpdateCategoryDto;
 }, opts?: Oazapfts.RequestOpts): Promise<never>;
+export declare function getAdminCategories(opts?: Oazapfts.RequestOpts): Promise<GetCategoryDto[]>;
 export declare function getAllCategories(opts?: Oazapfts.RequestOpts): Promise<GetCategoryDto[]>;
 export declare function getAuth(opts?: Oazapfts.RequestOpts): Promise<GetAuthResponseDto>;
 export declare function getToken({ code }: {
     code: string;
 }, opts?: Oazapfts.RequestOpts): Promise<never>;
-export declare function getAuth2(opts?: Oazapfts.RequestOpts): Promise<never>;
-export declare function createAccount(opts?: Oazapfts.RequestOpts): Promise<object>;
-export declare function donate({ accountId }: {
-    accountId: string;
-}, opts?: Oazapfts.RequestOpts): Promise<object>;
-export declare function handleOAuthCallback({ code, state }: {
-    code: string;
-    state: string;
+export declare function clearAllUserSessions({ deleteCampaignDto }: {
+    deleteCampaignDto: DeleteCampaignDto;
 }, opts?: Oazapfts.RequestOpts): Promise<never>;
-export declare function handleWebhook(opts?: Oazapfts.RequestOpts): Promise<never>;
+export declare function merge({ range }: {
+    range: string;
+}, opts?: Oazapfts.RequestOpts): Promise<object[]>;
+export declare function getTopCampaigns({ $type }: {
+    $type: string;
+}, opts?: Oazapfts.RequestOpts): Promise<object[]>;
+export declare function getTopCampaignsCategory({ $type, categoryId }: {
+    $type: string;
+    categoryId: string;
+}, opts?: Oazapfts.RequestOpts): Promise<object[]>;
+export declare function trackStatistic({ $type, trackStatisticDto }: {
+    $type: string;
+    trackStatisticDto: TrackStatisticDto;
+}, opts?: Oazapfts.RequestOpts): Promise<object>;
+export declare function blockFundraiser({ deleteCampaignDto }: {
+    deleteCampaignDto: DeleteCampaignDto;
+}, opts?: Oazapfts.RequestOpts): Promise<never>;
 export declare function getFundraisers({ search }: {
     search: string;
 }, opts?: Oazapfts.RequestOpts): Promise<UserMappedDto[]>;
 export declare function getMyself(opts?: Oazapfts.RequestOpts): Promise<UserMappedDto>;
+export declare function unblockFundraiser({ deleteCampaignDto }: {
+    deleteCampaignDto: DeleteCampaignDto;
+}, opts?: Oazapfts.RequestOpts): Promise<never>;
 export declare enum Role {
     User = "user",
     Fundraiser = "fundraiser",

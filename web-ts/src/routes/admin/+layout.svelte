@@ -1,8 +1,8 @@
 <script>
-	import FundraiserHeader from '$lib/components/Header/FundraiserHeader.svelte';
+	import AdminHeader from '$lib/components/Header/AdminHeader.svelte';
 </script>
 
-<FundraiserHeader />
+<AdminHeader />
 
 <div class="slim-mainpanel">
 	<div class="container">

@@ -1,4 +1,4 @@
-import { Injectable, Logger } from '@nestjs/common';
+import { forwardRef, Inject, Injectable, Logger } from '@nestjs/common';
 import { FilterQuery, ProjectionType } from 'mongoose';
 import { MongoSort } from 'src/common/types/mongo-sort.type';
 
@@ -6,6 +6,7 @@ import { CategoryRepository } from './category.repository';
 import { CategoryDocument } from './category.schema';
 import { CreateCategoryDto } from './dtos/create-category.dto';
 import { UpdateCategoryDto } from './dtos/update-category.dto';
+import { GetCategoryDto } from './dtos/get-category.dto';
 
 @Injectable()
 export class CategoryService {
@@ -36,5 +37,40 @@ export class CategoryService {
 
 	update({ _id, ...data }: UpdateCategoryDto) {
 		return this.categoryRepository.updateMany({ _id }, data);
+	}
+
+	findCategoriesForAdmin(): Promise<GetCategoryDto[]> {
+		return this.categoryRepository.aggregate([
+			{
+				$lookup: {
+					from: 'campaign',
+					localField: '_id',
+					foreignField: 'categoryId',
+					as: 'campaigns'
+				}
+			},
+			{
+				$addFields: {
+					liveCampaigns: {
+						$size: {
+							$filter: {
+								input: '$campaigns',
+								as: 'campaign',
+								cond: { $eq: ['$$campaign.status', 'active'] }
+							}
+						}
+					},
+					createdCampaigns: { $size: '$campaigns' }
+				}
+			},
+			{
+				$project: {
+					campaigns: 0
+				}
+			},
+			{
+				$sort: { order: 1 }
+			}
+		]);
 	}
 }

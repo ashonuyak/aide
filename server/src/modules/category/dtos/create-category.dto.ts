@@ -16,4 +16,8 @@ export class CreateCategoryDto {
 	@IsString()
 	@MaxLength(50)
 	readonly color!: string;
+
+	@IsString()
+	@IsOptional()
+	readonly mediaUrl?: string;
 }

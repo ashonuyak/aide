@@ -1,6 +1,7 @@
-import { Module } from '@nestjs/common';
+import { forwardRef, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 
+import { CampaignModule } from '../campaign/campaign.module';
 import { CategoryController } from './category.controller';
 import { CategoryRepository } from './category.repository';
 import { CategoryModel, CategorySchema } from './category.schema';

@@ -24,7 +24,11 @@ export default {
 			sans: ['inter-regular', 'sans-serif'],
 			serif: ['inter-regular', 'serif'],
 			semibold: ['inter-semibold', 'sans-serif'],
-			medium: ['inter-medium', 'sans-serif']
+			medium: ['inter-medium', 'sans-serif'],
+			thin: ['inter-thin', 'sans-serif'],
+			light: ['inter-light', 'sans-serif'],
+			extralight: ['inter-extralight', 'sans-serif'],
+			extrabold: ['inter-extrabold', 'sans-serif']
 		},
 		extend: {}
 	},

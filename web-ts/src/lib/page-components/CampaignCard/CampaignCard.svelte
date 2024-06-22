@@ -28,15 +28,17 @@
 		<div
 			class="px-6 h-12 w-full bg-[#f3f3f3] flex items-center justify-between border-b border-b-[#e8e8e8]"
 		>
-			<div class="flex items-center gap-2">
-				<Avatar
-					src={fundraiser.avatarUrl}
-					initials={fundraiser.initials}
-					width="w-[24px]"
-				/>
+			{#if fundraiser}
+				<div class="flex items-center gap-2">
+					<Avatar
+						src={fundraiser.avatarUrl}
+						initials={fundraiser.initials}
+						width="w-[24px]"
+					/>
 
-				<div class="text-sm font-medium">{fundraiser.username}</div>
-			</div>
+					<div class="text-sm font-medium">{fundraiser.username}</div>
+				</div>
+			{/if}
 
 			<div
 				class="px-2 py-[2px] bg-[#444] font-semibold text-[10px] text-[#fff] rounded-full truncate max-w-[200px]"
